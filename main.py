@@ -33,7 +33,7 @@ if st.button('전송'):
     url = f'{api_endpoint}/publish'  # api_endpoint에 해당하는 실제 엔드포인트를 사용합니다.
     auth = (app_id, app_secret)  # 사용자 이름과 비밀번호
     headers = {'Content-Type': 'application/json'}
-    data = json.dumps({"topic": "t/a", "qos": 1, "payload": "Hello EMQX"})
+    data = json.dumps({"topic": "otacosystem/carwash", "qos": 1, "payload": "Hello EMQX"})
 
     # POST 요청을 보내 메시지를 전송합니다.
     response = requests.post(url, auth=auth, headers=headers, data=data)
