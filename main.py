@@ -2,6 +2,7 @@
 import requests
 import streamlit as st
 from requests.auth import HTTPBasicAuth
+import paho
 
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
