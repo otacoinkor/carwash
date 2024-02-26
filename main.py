@@ -41,6 +41,8 @@ if st.button('전송'):
     # 응답을 확인하여 화면에 출력합니다.
     if response.ok:
         st.success('메시지가 성공적으로 전송되었습니다.')
+        message_data = response.json()
+        st.json(message_data)
     else:
         st.error('메시지를 전송하는데 실패했습니다.')
 
