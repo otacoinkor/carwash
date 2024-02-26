@@ -1,7 +1,7 @@
 # main.py
-
-import streamlit as st
 import requests
+import streamlit as st
+from requests.auth import HTTPBasicAuth
 
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
@@ -19,16 +19,22 @@ def send_mqtt_message(topic, message):
     data = {
         "topic": topic,
         "payload": message,
-        "qos": 0,  # QoS level
-        "retain": False,  # Retain flag
-        "client_id": "otacosystem0221"  # Client ID
+        "qos": 1,
+        "retain": False,
+        "client_id": "your_client_id"  # Client ID
     }
 
-    response = requests.post(api_url, headers=headers, json=data)
+    response = requests.post(
+        api_url,
+        headers=headers,
+        json=data,
+        auth=HTTPBasicAuth(st.secrets["APP_ID"], st.secrets["APP_SECRET"])  # Basic 인증
+    )
+
     if response.status_code == 200:
         st.success(f"Message sent to {topic}!")
     else:
-        st.error(f"Failed to send message. Status code: {response.status_code}")
+        st.error(f"Failed to send message. Status code: {response.status_code}, Response: {response.text}")
 
 
 # Streamlit 앱
