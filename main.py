@@ -12,13 +12,11 @@ app_secret = st.secrets["APP_SECRET"]
 # 스트림릿 앱의 UI를 구성합니다.
 st.title('메시지 전송 앱')
 
-# API 요청을 보낼 준비를 합니다.
-url = f'{api_endpoint}/subscriptions'  # 실제 엔드포인트를 사용합니다.
-auth = (app_id, app_secret)  # 사용자 ID와 비밀번호
 
 # 수신 버튼 생성
 if st.button('수신'):
-    url = f'{api_endpoint}/receive'  # 메시지를 수신하는 엔드포인트를 가정합니다.
+    url = f'{api_endpoint}/subscriptions'  # 실제 엔드포인트를 사용합니다.
+    auth = (app_id, app_secret)  # 사용자 ID와 비밀번호
     headers = {'Content-Type': 'application/json'}
     response = requests.get(url, auth=(app_id, app_secret), headers=headers)
 
