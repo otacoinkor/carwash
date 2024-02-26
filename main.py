@@ -12,7 +12,6 @@ app_secret = st.secrets["APP_SECRET"]
 st.title('메시지 전송 앱')
 
 
-# 수신 버튼 생성
 if st.button('수신'):
     url = f'{api_endpoint}/subscriptions'  # 실제 엔드포인트를 사용합니다.
     auth = (app_id, app_secret)  # 사용자 ID와 비밀번호
@@ -27,7 +26,7 @@ if st.button('수신'):
     else:
         st.error('메시지를 수신하는데 실패했습니다.')
 
-# '전송' 버튼을 만듭니다.
+
 if st.button('전송'):
     url = f'{api_endpoint}/publish'  # api_endpoint에 해당하는 실제 엔드포인트를 사용합니다.
     auth = (app_id, app_secret)  # 사용자 이름과 비밀번호
@@ -45,7 +44,7 @@ if st.button('전송'):
 
 
 if st.button('구독'):
-    url = f'{api_endpoint}/clients/client_1/subscribe'
+    url = f'{api_endpoint}/clients/otacosystem_client_1/subscribe'
     auth = (app_id, app_secret)
     headers = {'Content-Type': 'application/json'}
     data = {"topic": "otacosystem/carwash", "qos": 1}
@@ -58,8 +57,6 @@ if st.button('구독'):
     else:
         st.error('구독을 실패했습니다. 에러 메시지: ' + response.text)
 
-# Streamlit 앱을 실행하려면 위 코드를 streamlit_app.py 파일로 저장하고
-# 스트림릿을 실행합니다.
 
 if st.button('모든 클라이언트 보기'):
     url = f'{api_endpoint}/clients'
