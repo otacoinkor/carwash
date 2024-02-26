@@ -1,32 +1,53 @@
 # main.py
 
 import streamlit as st
-import paho.mqtt.client as mqtt
+import random
+from paho.mqtt import client as mqtt_client
+import threading
 
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
-# MQTT 클라이언트 객체 생성 및 연결
-client = mqtt.Client("otaocotest0221", callback_api_version=mqtt.constants.CALLBACK_API_VERSION_1_1)
-client.connect(host=st.secrets["MQTT_BROKER"], port=8883, keepalive=60)
-client.loop_start()
-
-
-def send_mqtt_message(topic, message):
-    # 주어진 토픽에 메시지 발행
-    client.publish(topic, message)
-
+broker = 'broker.emqx.io'
+port = 1883
+topic = "python/mqtt"
+# generate client ID with pub prefix randomly
+client_id = f'python-mqtt-{random.randint(0, 1000)}'
+username = 'emqx'
+password = '1234567890'
 
 # Streamlit 앱
 st.title('MQTT Message Sender')
 
-if st.button("Send Message 1"):
-    send_mqtt_message("topic1", "Hello, Streamlit 1!")
-    st.success("Message 1 sent!")
 
-if st.button("Send Message 2"):
-    send_mqtt_message("topic2", "Hello, Streamlit 2!")
-    st.success("Message 2 sent!")
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        st.write("Connected to MQTT Broker!")
+    else:
+        st.write("Failed to connect, return code %d\n", rc)
 
-if st.button("Send Message 3"):
-    send_mqtt_message("topic3", "Hello, Streamlit 3!")
-    st.success("Message 3 sent!")
+
+def on_message(client, userdata, msg):
+    st.write(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+
+
+def connect_mqtt() -> mqtt_client:
+    client = mqtt_client.Client(client_id)
+    client.username_pw_set(username, password)
+    client.on_connect = on_connect
+    client.connect(broker, port)
+    return client
+
+
+def subscribe(client: mqtt_client):
+    client.subscribe(topic)
+    client.on_message = on_message
+
+
+def run():
+    client = connect_mqtt()
+    subscribe(client)
+    client.loop_start()
+
+
+if st.button('Start MQTT Client'):
+    threading.Thread(target=run).start()
