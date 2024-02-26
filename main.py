@@ -1,14 +1,13 @@
 # main.py
-import requests
+
 import streamlit as st
-from requests.auth import HTTPBasicAuth
 import paho.mqtt.client as mqtt
 
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
 # MQTT 클라이언트 객체 생성 및 연결
 client = mqtt.Client()
-client.connect(st.secrets["MQTT_BROKER"], 8883, 60)
+client.connect(host=st.secrets["MQTT_BROKER"], port=8883, keepalive=60)
 client.loop_start()
 
 
