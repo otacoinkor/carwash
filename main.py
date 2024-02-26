@@ -1,21 +1,34 @@
 # main.py
 
 import streamlit as st
-from gmqtt import Client as MQTTClient
-
+import requests
 
 st.write("세차장 키오스크 MQTT 테스트 Paho ")
 
-# MQTT 클라이언트 객체 생성 및 연결
-mqtt_broker = st.secrets["MQTT_BROKER"]
+# EMQ X MQTT 서비스의 HTTP API URL
+mqtt_api_endpoirnt = st.secrets["API_ENDPOINT"]
+api_url = mqtt_api_endpoirnt
 
-client = MQTTClient("otaco_sys_0221")
-client.connect(mqtt_broker)
+headers = {
+    'Content-Type': 'application/json',
+}
 
 
+# 메시지 전송 함수
 def send_mqtt_message(topic, message):
-    # 주어진 토픽에 메시지 발행
-    client.publish(topic, message)
+    data = {
+        "topic": topic,
+        "payload": message,
+        "qos": 0,  # QoS level
+        "retain": False,  # Retain flag
+        "client_id": "your_client_id"  # Client ID
+    }
+
+    response = requests.post(api_url, headers=headers, json=data)
+    if response.status_code == 200:
+        st.success(f"Message sent to {topic}!")
+    else:
+        st.error("Failed to send message.")
 
 
 # Streamlit 앱
