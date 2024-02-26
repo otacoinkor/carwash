@@ -5,7 +5,7 @@ import requests
 
 # API Endpoint가 Streamlit secrets에 저장되어 있다고 가정합니다.
 # 예를 들어 secrets.toml 파일에 api_endpoint="https://example.com/api/v1" 형태로 저장합니다.
-api_endpoint = st.secrets["api_endpoint"]
+api_endpoint = st.secrets["API_ENDPOOINT"]
 app_id = st.secrets["APP_ID"]
 app_secret = st.secrets["APP_SECRET"]
 
