@@ -46,5 +46,19 @@ if st.button('전송'):
     else:
         st.error('메시지를 전송하는데 실패했습니다.')
 
+
+if st.button('구독'):
+    auth = (app_id, app_secret)
+    headers = {'Content-Type': 'application/json'}
+    payload = {"topic": "otacosystem/carwash", "qos": 1}
+    response = requests.post(api_endpoint, auth=auth, headers=headers, json=payload)
+
+    # 요청에 대한 결과를 반환합니다.
+    if response.ok:
+        st.success('구독이 성공적으로 완료되었습니다.')
+        st.json(response.json())
+    else:
+        st.error('구독을 실패했습니다. 에러 메시지: ' + response.text)
+
 # Streamlit 앱을 실행하려면 위 코드를 streamlit_app.py 파일로 저장하고
 # 스트림릿을 실행합니다.
