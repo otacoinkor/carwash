@@ -3,7 +3,7 @@
 import streamlit as st
 import requests
 
-st.write("세차장 키오스크 MQTT 테스트 Paho ")
+st.write("세차장 키오스크 MQTT REST API 테스트")
 
 # EMQ X MQTT 서비스의 HTTP API URL
 mqtt_api_endpoirnt = st.secrets["API_ENDPOINT"]
