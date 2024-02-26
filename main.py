@@ -16,21 +16,18 @@ st.title('메시지 전송 앱')
 url = f'{api_endpoint}/subscriptions'  # 실제 엔드포인트를 사용합니다.
 auth = (app_id, app_secret)  # 사용자 ID와 비밀번호
 
-# GET 요청을 보내 구독 정보를 요청합니다.
-response = requests.get(url, auth=auth)
+# 수신 버튼 생성
+if st.button('수신'):
+    url = f'{api_endpoint}/receive'  # 메시지를 수신하는 엔드포인트를 가정합니다.
+    headers = {'Content-Type': 'application/json'}
+    response = requests.get(url, auth=(app_id, app_secret), headers=headers)
 
-# 응답을 확인하여 화면에 출력합니다.
-if response.ok:
-    # 응답 데이터를 JSON 형태로 변환합니다.
-    subscriptions = response.json()
-    st.success('구독 정보를 성공적으로 수신하였습니다.')
-    # 구독 정보를 화면에 표시합니다 (예시)
-    st.json(subscriptions)
-else:
-    st.error('구독 정보를 수신하는데 실패하였습니다.')
-
-# 사용자로부터 데이터를 입력받습니다.
-# message = st.text_input('메시지를 입력하세요')
+    if response.ok:
+        message_data = response.json()
+        st.success('메시지를 성공적으로 수신하였습니다.')
+        st.json(message_data)
+    else:
+        st.error('메시지를 수신하는데 실패했습니다.')
 
 # '전송' 버튼을 만듭니다.
 if st.button('전송'):
