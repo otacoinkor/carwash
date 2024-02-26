@@ -1,15 +1,16 @@
 # main.py
 
-import paho.mqtt.client as mqtt
 import streamlit as st
+from gmqtt import Client as MQTTClient
 
 
 st.write("세차장 키오스크 MQTT 테스트 Paho ")
 
 # MQTT 클라이언트 객체 생성 및 연결
-client = mqtt.Client()
-client.connect(st.secrets["MQTT_BROKER"], 8883, 60)
-client.loop_start()
+mqtt_broker = st.secrets["MQTT_BROKER"]
+
+client = MQTTClient("otaco_sys_0221")
+client.connect(mqtt_broker)
 
 
 def send_mqtt_message(topic, message):
