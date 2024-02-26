@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt
 import streamlit as st
 
 
-st.write("세차장 키오스크 MQTT 테스트")
+st.write("세차장 키오스크 MQTT 테스트 ")
 
 # MQTT 클라이언트 객체 생성 및 연결
 client = mqtt.Client()
