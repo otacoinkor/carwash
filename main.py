@@ -6,36 +6,15 @@ import paho.mqtt.client as mqtt
 
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
-# EMQ X MQTT 서비스의 HTTP API URL
-mqtt_api_endpoirnt = st.secrets["API_ENDPOINT"]
-api_url = mqtt_api_endpoirnt
-
-headers = {
-    'Content-Type': 'application/json',
-}
+# MQTT 클라이언트 객체 생성 및 연결
+client = mqtt.Client()
+client.connect(st.secrets["MQTT_BROKER"], 8883, 60)
+client.loop_start()
 
 
-# 메시지 전송 함수
 def send_mqtt_message(topic, message):
-    data = {
-        "topic": topic,
-        "payload": message,
-        "qos": 1,
-        "retain": False,
-        "client_id": "your_client_id"  # Client ID
-    }
-
-    response = requests.post(
-        api_url,
-        headers=headers,
-        json=data,
-        auth=HTTPBasicAuth(st.secrets["APP_ID"], st.secrets["APP_SECRET"])  # Basic 인증
-    )
-
-    if response.status_code == 200:
-        st.success(f"Message sent to {topic}!")
-    else:
-        st.error(f"Failed to send message. Status code: {response.status_code}, Response: {response.text}")
+    # 주어진 토픽에 메시지 발행
+    client.publish(topic, message)
 
 
 # Streamlit 앱
