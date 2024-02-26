@@ -21,7 +21,7 @@ def send_mqtt_message(topic, message):
         "payload": message,
         "qos": 0,  # QoS level
         "retain": False,  # Retain flag
-        "client_id": "your_client_id"  # Client ID
+        "client_id": "otacosystem0221"  # Client ID
     }
 
     response = requests.post(api_url, headers=headers, json=data)
