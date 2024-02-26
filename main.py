@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
 # MQTT 클라이언트 객체 생성 및 연결
-client = mqtt.Client("otaocotest0221")
+client = mqtt.Client("otaocotest0221", callback_api_version=mqtt.constants.CALLBACK_API_VERSION_1_1)
 client.connect(host=st.secrets["MQTT_BROKER"], port=8883, keepalive=60)
 client.loop_start()
 
