@@ -8,7 +8,7 @@ import threading
 st.write("세차장 키오스크 MQTT REST API 테스트")
 
 broker = 'broker.emqx.io'
-port = 1883
+port = 8883
 topic = "python/mqtt"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
