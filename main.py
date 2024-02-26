@@ -28,7 +28,7 @@ def send_mqtt_message(topic, message):
     if response.status_code == 200:
         st.success(f"Message sent to {topic}!")
     else:
-        st.error(f"Failed to send message. Response: {response.text}")
+        st.error(f"Failed to send message. Status code: {response.status_code}")
 
 
 # Streamlit 앱
