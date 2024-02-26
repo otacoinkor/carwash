@@ -48,6 +48,7 @@ if st.button('전송'):
 
 
 if st.button('구독'):
+    api_endpoint = f'{api_endpoint}/clients/client_1/subscribe'
     auth = (app_id, app_secret)
     headers = {'Content-Type': 'application/json'}
     payload = {"topic": "otacosystem/carwash", "qos": 1}
