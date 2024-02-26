@@ -3,7 +3,7 @@
 import streamlit as st
 import paho.mqtt.client as mqtt
 
-st.write("carwash MQTT test")
+st.write("carwash MQTT 테스트")
 
 # MQTT 클라이언트 객체 생성 및 연결
 client = mqtt.Client()
