@@ -9,7 +9,7 @@ app_id = st.secrets["APP_ID"]
 app_secret = st.secrets["APP_SECRET"]
 
 # 스트림릿 앱의 UI를 구성합니다.
-st.title('메시지 전송')
+st.title('메시지 전송 웹앱')
 
 
 if st.button('수신'):
