@@ -16,6 +16,9 @@ mqtt_topic = "your_topic"
 # 스트림릿 앱의 UI를 구성합니다.
 st.title('메시지 전송 웹앱')
 
+client = mqtt.Client()
+client.connect(mqtt_broker, mqtt_port, 60)
+
 
 if st.button('수신'):
     url = f'{api_endpoint}/subscriptions'
@@ -33,21 +36,9 @@ if st.button('수신'):
 
 
 if st.button('전송'):
-    '''url = f'{api_endpoint}/publish'  # api_endpoint에 해당하는 실제 엔드포인트를 사용합니다.
-    auth = (app_id, app_secret)  # 사용자 이름과 비밀번호
-    headers = {'Content-Type': 'application/json'}
-    data = json.dumps({"topic": "otacosystem/carwash", "qos": 1, "payload": "Hello EMQX"})
-
-    response = requests.post(url, auth=auth, headers=headers, data=data)
-
-    if response.ok:
-        st.success('메시지가 성공적으로 전송되었습니다.')
-        message_data = response.json()
-        st.json(message_data)
-    else:
-        st.error('메시지를 전송하는데 실패했습니다.')'''
-
-    client = mqtt.Client()
+    message = "Hello, MQTT!"
+    client.publish(mqtt_topic, message)
+    st.success('Message sent successfully!')
 
 
 if st.button('구독'):
