@@ -1,5 +1,6 @@
 import json
 import streamlit as st
+import paho.mqtt.client as mqtt
 import requests
 
 # API Endpoint가 Streamlit secrets에 저장되어 있다고 가정합니다.
