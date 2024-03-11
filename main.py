@@ -13,7 +13,7 @@ client = mqtt.Client()
 client.connect(mqtt_broker, mqtt_port, 60)
 
 if st.button('전송'):
-    message = "Hello, MQTT!"
+    message = "streamlit MQTT test message"
     client.publish(mqtt_topic, message)
     st.success('Message sent successfully!')
 
