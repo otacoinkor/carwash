@@ -3,7 +3,7 @@ import streamlit as st
 from mqtt import create_mqtt_client, send_mqtt_message
 
 # 스트림릿 앱의 UI를 구성합니다.
-st.title('MQTT 테스트')
+st.title('otaco MQTT 테스트')
 
 mqtt_client = create_mqtt_client()
 
