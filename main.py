@@ -8,7 +8,7 @@ mqtt_port = 1883
 mqtt_topic = "otaco_sys"
 
 # 스트림릿 앱의 UI를 구성합니다.
-st.title('세차장 MQTT 테스트')
+st.title('MQTT 테스트')
 
 client = mqtt.Client()
 client.connect(mqtt_broker, mqtt_port, 60)
