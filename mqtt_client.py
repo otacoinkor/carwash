@@ -1,4 +1,4 @@
-# mqtt.py
+# mqtt_client.py
 import paho.mqtt.client as mqtt
 
 MQTT_BROKER = "broker.emqx.io"  # "broker.hivemq.com"
