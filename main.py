@@ -22,17 +22,19 @@ def on_disconnect(client, userdata, rc):
         st.write("Unexpected disconnection.")
 
 
+def mqtt_connect():
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    client.loop_start()
+    return client
+
+
 # 스트림릿 앱의 UI를 구성합니다.
 st.title('MQTT 테스트')
 
-# Initialize MQTT Client
-mqtt_client = mqtt.Client()
-mqtt_client.on_connect = on_connect
-mqtt_client.on_disconnect = on_disconnect
-mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
-
-# Start the loop
-mqtt_client.loop_start()
+mqtt_client = mqtt_connect()
 
 if st.button('전송'):
     now = datetime.now()
