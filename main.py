@@ -1,3 +1,4 @@
+from datetime import datetime
 
 import streamlit as st
 import paho.mqtt.client as mqtt
@@ -13,7 +14,11 @@ client = mqtt.Client()
 client.connect(mqtt_broker, mqtt_port, 60)
 
 if st.button('전송'):
-    message = "streamlit MQTT 테스트"
+    now = datetime.now()
+    time_string = now.strftime("%Y-%m-%d %H:%M:%S")
+    print(time_string)
+
+    message = "MQTT 테스트 " + time_string
     client.publish(mqtt_topic, message)
 
     st.success('Message sent successfully!')
