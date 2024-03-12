@@ -6,7 +6,16 @@ from mqtt_client import create_mqtt_client, send_mqtt_message
 # 스트림릿 앱의 UI를 구성합니다.
 st.title('otaco MQTT 테스트')
 
-mqtt_client = create_mqtt_client()
+
+# MQTT 클라이언트 초기화 및 연결을 관리하는 함수
+def init_mqtt_client():
+    if 'mqtt_client' not in st.session_state:
+        st.session_state.mqtt_client = create_mqtt_client(st.session_state)
+        st.write("MQTT 연결 시도")
+
+
+# MQTT 클라이언트 초기화
+init_mqtt_client()
 
 if st.button('전송'):
     now = datetime.now()
@@ -14,6 +23,6 @@ if st.button('전송'):
     print(time_string)
 
     message = "MQTT 테스트 " + time_string
-    send_mqtt_message(mqtt_client, message)
+    send_mqtt_message(st.session_state.mqtt_client, message)
 
     st.success('Message sent successfully!')

@@ -6,21 +6,25 @@ MQTT_PORT = 1883
 MQTT_TOPIC = "otaco_sys"
 
 
-# Define on_connect callback
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
+    # 연결 상태 업데이트
+    userdata["is_connected"] = True
 
 
 # Define on_disconnect callback
 def on_disconnect(client, userdata, rc):
     print("Disconnected")
+    # 연결 해제 상태 업데이트
+    userdata["is_connected"] = False
 
 
-def create_mqtt_client():
-    client = mqtt.Client()
+def create_mqtt_client(userdata):
+    client = mqtt.Client(userdata=userdata)
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
     client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    client.loop_start()
     return client
 
 
