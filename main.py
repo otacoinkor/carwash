@@ -7,7 +7,7 @@ import streamlit as st
 from mqtt_client import create_mqtt_client, send_mqtt_message
 
 # 스트림릿 앱의 UI를 구성합니다.
-st.title('otaco MQTT 테스트')
+st.title('MQTT 테스트')
 
 if 'mqtt_userdata' not in st.session_state:
     st.session_state.mqtt_userdata = {"is_connected": False}
